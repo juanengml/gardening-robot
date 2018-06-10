@@ -1,2 +1,8 @@
-http://arduino.esp8266.com/stable/package_esp8266com_index.json
+Bibliotecas Usadas para Este projeto
+DataAnalises: numpy, sklearn, pandas, seaborn
+Vizualização: Matplotlib
+IoTs: string.h, ESP8266WiFi.h, PubSubClient.h
+ARDUINO IDE = > Abra File => DPS Preferences => Cole isso na barra de 
+"URLS ADICIONAIS PARA GERENCIAMENTO DE PLACAS "
+ http://arduino.esp8266.com/stable/package_esp8266com_index.json
 

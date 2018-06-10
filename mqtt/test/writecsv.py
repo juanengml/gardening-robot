@@ -12,8 +12,8 @@ def csv_writer(data, path):
 def sensores():
 #  ID = random.choice(range())
   ID = 4
-  MES = random.choice(range(1,2))
-  DIA = random.choice(range(0,24))
+  MES = random.choice(range(5,7))
+  DIA = random.choice(range(19,24))
   HORA = random.choice(range(24))
   UMIDADE = random.choice(range(75,100))
   #STATUS = "AGUADO"

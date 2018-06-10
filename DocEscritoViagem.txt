@@ -1,0 +1,63 @@
+Problema
+(supervisão de reservatorio e plantio)
+Com base na realidade de Porto Velho, que enfrentou 2 paralizações da Companhia de Águas e Esgotos de Rondonia -CAERD- em um intervalo menor que 6 meses, que causou impacto nos recursos hidricos que as residencias possuem nos reservatorios de água para consumo local. Muitas residencias que possuem plantios, os abastecem com a água que possuem no reservatorio, e nos momentos de crises hídricas, isso torna-se um problema, já que todos os consumos locais precisam de supervisao da quantidade gasta para determinados (objetivos)... 
+Os cultivos caseiros precisam sobreviver enquanto tiverem disponibilidade de água; quando a supervisao do reservatorio é constante, a supervisão do reservatorio e plantio torna-se mais "facil" .. porem quando
+
+
+
+
+
+
+
+
+III Metodologia 
+
+* Range de nivels de classificação será avaliada metrica da tabela 01
+
+KNN 
+
+Paragrafo 2 
+
+* Inicialmente é aplicado aos dados um KNN-Classifer com 4
+componentes principais, após o treino e test, é feita a
+predição dos dados.
+
+Comunicação com os IoTs
+
+Topologia 
+[ aqui vc deve criar um desenho de como vai ficar a topologia da rede 
+explicar como cada componente deve ficar]
+
+Protocolo
+
+MQTT é um protocolo comumnete usado na industria de coleta de dados 
+e aplicado dentro de sistemas como scala, é foi desenvolvido 
+pela ibm, para comunicação entre mainframes, por ser de facil
+implementação é um protocolo que é extremamente facil de 
+implementar e otimizar.
+
+O MQTT opera usando conceito de topicos para envio e recebimento
+de mensagens, usando um conceito de topologia de rede muito semelhante 
+a rede estrela, onde temos um broker(server), e varios 
+iot conectados e enviando e recebendo mensagens, sendo 
+para publish(enviar) e subcribe(receber).
+
+Embarcado
+
+O embarcado utilizado neste projeto foi o NODEMCU(esp8266), 
+um ele se torna muito util em coleta de dados de campo, foi utilizado 4 nodemcu's durante o projeto
+ele possui portas de I/O e possui um chip esp especifico para 
+trabalhar com redes sem fio, por operar em modelo tcp/ip embarcado, o node tem bibliotecas que falam com mqtt
+
+Em uma rede local, é possivel fazer coleta de dados do node, 
+usando protocolo de baixa latencia para otimização de coleta,
+por ser barato e facil de encontrar no mercado, foi a melhor 
+opção para esse tipo de problema.
+
+Sensor
+
+[ DEBORA FAZ ] Sensor de Umidade de solo, este sensor tem 
+
+
+
+
