@@ -20,9 +20,9 @@ DPS Preferences => Cole isso na barra de
 "URLS ADICIONAIS PARA GERENCIAMENTO DE PLACAS "
  http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
-- [String.h]
-- [ESP8266Wifi.h]
-- [PubSubClient.h]
+- [String.h](https://www.arduino.cc/reference/en/language/variables/data-types/stringobject/)
+- [ESP8266Wifi.h](http://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/readme.html)
+- [PubSubClient.h](https://pubsubclient.knolleary.net/api.html)
 
 ### PRÊ-RUN 
 Neste projeto usei 4 nodemcu, 4 sensores de solo, cada 
