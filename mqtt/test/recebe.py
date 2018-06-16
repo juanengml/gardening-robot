@@ -67,7 +67,7 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 # conecta no broker
-client.connect("192.168.0.9", 1883)
+client.connect("192.168.100.31", 1883)
 
 # permace em loop, recebendo mensagens
 client.loop_forever()
