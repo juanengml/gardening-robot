@@ -10,8 +10,6 @@ import seaborn as sns
 
 df = pd.read_csv('plantacao.csv')
 
-print "Total de amostras coletados do dataset: ",len(df)
-
 X = np.array(df.drop('ID',axis = 1))
 
 y = np.array(df["ID"])
