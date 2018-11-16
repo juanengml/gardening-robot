@@ -7,15 +7,11 @@ WiFiClient clientMQTT;
 WiFiClient client;
 long ultimo_envio;
 PubSubClient MQTT(clientMQTT); // Instancia o Cliente MQTT passando o objeto clientMQTT
-long umidade;
-long day;
-long mes;
-long hora;
-long data;
+float umidade;
 
-#define SSID_REDE     "qual e a senha"    // nome da rede 
-#define SENHA_REDE    "meadota123"        // senha da rede 
-#define IP_BROKER     "192.168.0.9"       // IP DO BROKER LOCAL
+#define SSID_REDE     "tapodi"    // nome da rede 
+#define SENHA_REDE    "naolembro"        // senha da rede 
+#define IP_BROKER     "192.168.100.10"       // IP DO BROKER LOCAL
 #define TOPICO         "/horta/planta/01" //  PLANTA 01  
 
 void setup(){
@@ -126,14 +122,22 @@ void VerificaConexoesWiFIEMQTT(void)
      reconectWiFi(); //se não há conexão com o WiFI, a conexão é refeita
 }
 
+
+
  
 char* PegarDado(){
-  long ID  = 01;  /// change ID DO IOT 
-  day = random(30);
-  mes = random(2);
-  hora = random(23);
-  umidade = random(100);
+  
+  int ValorADC;
+  float UmidadePercentual;
+  ValorADC = analogRead(0);   //418 -> 1.0V
+  UmidadePercentual = 100 * ((418-(float)ValorADC) / 418);
+
+  long ID = 01;  /// change ID DO IOT 
+  umidade = UmidadePercentual;
   static char data[100];
-  sprintf(data, "ID: %lu; MES: %lu; DIA: %lu; Hora: %lu; umidade: %lu", ID, mes, day,hora,umidade);
+  Serial.println(umidade);
+  
+  sprintf(data, "ID: %lu; umidade: %.2f", ID,umidade);
+  Serial.println(data);
   return data;
 }
