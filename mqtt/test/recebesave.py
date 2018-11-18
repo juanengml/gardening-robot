@@ -4,9 +4,17 @@ import paho.mqtt.client as mqtt
 import csv
 import random  
 from time import sleep
+from datetime import datetime 
+import time
+
+
+def millis():
+        return time.time() * 1000
 
 import os 
-TOPIC = "home/gardem/#"
+
+TOPIC = "home/gardem/horta/planta/#"
+
 def csv_writer(data, path):
     with open(path, "wb") as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
@@ -17,10 +25,8 @@ def csv_writer(data, path):
 
 def pre_processing(text):
  d = [] 
- dados = text.split("; ")
- for p in range(len(dados)):
-    d.append(dados[p].split(":")[1])
- dados = [["ID", "MES", "DIA","Hora","umidade"],d]
+ features = (" ".join(text.split(" umidade: "))).split("; ")
+ dados = [["ID", "MES", "DIA","Hora","umidade"], features]
  return dados
 
 def gravar_dado(arquivo,text):
@@ -29,17 +35,12 @@ def gravar_dado(arquivo,text):
         writer = csv.writer(log,delimiter=",")
         writer.writerow(dados[1])       
         print "*" * 50
-        print "GRAVADO no CSV"
+        print "\tGRAVADO no CSV"
         print "*" * 50
-        sleep(1)
+         
 
 
-def my_ip():
-    ip = os.popen("ip a | grep 192").read()
-    pi = ip.find("1")
-    pf = ip.find("/")
-    me = ip[pi:pf]
-    return me
+
 
 
 def on_connect(self,client, data, rc):
@@ -52,9 +53,18 @@ def on_message(client, userdata, msg):
     #print msg.topic + "/" + str(v)
     
     print "TOPICO: ",msg.topic," payload: ",str(msg.payload)
-    #text = str(msg.payload)
+    ID = "%s" % (str(msg.topic).split("/"))[4]
+    text = "%s" % (str(msg.payload))
+    mes, dia, hora = datetime.now().month, datetime.now().day, datetime.now().hour
+    #text =   "%s; %s; %s; %s; %s" % (ID,mes,dia,hora,text[6:])
+    dado = "%s; %s; %s; %s; %s" % (ID,mes,dia,hora,text[6:])
+    #print dado
     #sleep(0.5)
-    #gravar_dado("plantacao.csv",text)
+    start = millis()
+    while ( (start + 1000) > millis() ):
+        pass
+    gravar_dado("log.csv",dado)
+
     
         
 
