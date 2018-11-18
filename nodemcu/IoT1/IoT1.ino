@@ -11,8 +11,8 @@ float umidade;
 
 #define SSID_REDE     "tapodi"    // nome da rede 
 #define SENHA_REDE    "naolembro"        // senha da rede 
-#define IP_BROKER     "192.168.100.10"       // IP DO BROKER LOCAL
-#define TOPICO         "/horta/planta/01" //  PLANTA 01  
+#define IP_BROKER     "192.168.100.3"       // IP DO BROKER LOCAL
+#define TOPICO         "home/gardem/horta/planta/03" //  PLANTA 01  
 
 void setup(){
   Serial.begin(115200);
@@ -100,10 +100,10 @@ void reconnectMQTT()
     {
         Serial.print("* Tentando se conectar ao Broker MQTT: ");
         Serial.println(IP_BROKER);
-        if (MQTT.connect("IoT:01")) 
+        if (MQTT.connect("IoT:02")) 
         {
             Serial.println("Conectado com sucesso ao broker MQTT!");
-            MQTT.subscribe("IoT: 01 ONLINE"); 
+            MQTT.subscribe("IoT: 02 ONLINE"); 
         } 
         else
         {
