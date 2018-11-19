@@ -26,13 +26,16 @@ def grafico_linha():
 
 
 def sensores():
- df = pd.read_csv("../mqtt/test/log.csv")
  lista = []
+ df = pd.read_csv("../mqtt/test/log.csv")
  tamanho = len(df)
- for p in range(2):
-  dado = (np.array(df[tamanho-1:tamanho]).tolist())[0]
-  n_dado = "\t * IoT: Umidade\nID: %s \nMes: %s\nDia: %s\nHora: %s\nNivel: %s" % (dado[0],dado[1],dado[2],dado[3],dado[4])
-  lista.append(n_dado)
+ dado = (np.array(df[tamanho-5:tamanho]).tolist())
+ n_dado = []
+ for i in range(len(dado)):
+    #for j in range(len(dado[i])):     
+        n_dado = "IoT ID: %s\nMES: %s\nDIA: %s\nHora: %s\nUmidade: %s\n*************" % (dado[i][0],dado[i][1],dado[i][2],dado[i][3],dado[i][4])
+        lista.append(n_dado)
+ #print lista
  return lista
  
 
@@ -44,6 +47,7 @@ def handle(msg):
     	print msg['text']
     	if msg['text'] == "Oi":
           bot.sendMessage(chat_id, std)
+          #bot.sendMessage(chat_id, "this is sample [text](www.test.com)",parse_mode= 'Markdown')
         if msg['text'] == "/status":
           bot.sendMessage(chat_id, "Buscando dado no banco....")
           dados = sensores()
@@ -53,15 +57,20 @@ def handle(msg):
         grafico_linha()      	
         bot.sendMessage(chat_id, "Gerando grafico de ploter...")
         bot.sendPhoto(chat_id, open('graph.jpg', 'rb'))
-        bot.sendMessage(chat_id, "Gerando grif graph...")
+        bot.sendMessage(chat_id, "Gerando grid graph...")
         bot.sendPhoto(chat_id, open('output.png', 'rb'))
+    if msg['text'] == "/query":    
+    	dado = msg['text']
+    	bot.sendMessage(chat_id, "Para usar o comando /query use o exemplo abaixo\n/query id:02\n/query all\n/query id:03 range:100\nCom isso o sistema fara uma busca pelo ID do sensor, ou mostrara todos os sensores conectados e os seus respctivos niveis, o range definira a faixa que ele vai buscar")
+    	
+
 
        
 
 
 #TOKEN = sys.argv[1]  # get token from command-line
 
-bot = telepot.Bot('720770185:AAEQeCMNxPA6WIn-zWMehXFTXI14jdGg3uA')
+bot = telepot.Bot('TOKEN')
 MessageLoop(bot, handle).run_as_thread()
 print ('Listening ...')
 

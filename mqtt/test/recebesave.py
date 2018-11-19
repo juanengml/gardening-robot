@@ -61,7 +61,7 @@ def on_message(client, userdata, msg):
     #print dado
     #sleep(0.5)
     start = millis()
-    while ( (start + 1000) > millis() ):
+    while ( (start + 5000) > millis() ):
         pass
     gravar_dado("log.csv",dado)
 
