@@ -11,6 +11,11 @@ import seaborn as sns
 
 std = """Sou um Robo desenvolvido para analisar sensor de umidade de solo, classificar niveis de umidade e prever se as plantas no jardim/horta precisa ser ragada ou não, no que posso ajudar ? """
 
+def query_20(ID,p):
+    df = pd.read_csv("../mqtt/test/log.csv")
+    query = df.iloc[len(df)-p:len(df)]
+    ID = (query['ID'] == ID).tolist()
+    return query[ID]
 
 def grafico_linha():
  df = pd.read_csv("../mqtt/test/log.csv")
@@ -59,10 +64,18 @@ def handle(msg):
         bot.sendPhoto(chat_id, open('graph.jpg', 'rb'))
         bot.sendMessage(chat_id, "Gerando grid graph...")
         bot.sendPhoto(chat_id, open('output.png', 'rb'))
-    if msg['text'] == "/query":    
+    if msg['text'] == "/cmds":    
     	dado = msg['text']
     	bot.sendMessage(chat_id, "Para usar o comando /query use o exemplo abaixo\n/query id:02\n/query all\n/query id:03 range:100\nCom isso o sistema fara uma busca pelo ID do sensor, ou mostrara todos os sensores conectados e os seus respctivos niveis, o range definira a faixa que ele vai buscar")
-    	
+            
+    if "/query" in msg['text']:    
+    	dado = msg['text']
+        #print dado.split(":")[0], 
+        sensor = int(dado.split(":")[1])
+        r =  query_20(sensor,100).values
+        for p in range(len(r)):
+           #bot.sendMessage(chat_id, "IoT %s | Data: %s/%s/2018 | hora: %s\nUmidade: %s" % list(r[p])[0],list(r[p])[1],list(r[p])[2],list(r[p])[3],list(r[p])[4])
+    	    bot.sendMessage(chat_id,"%s" % list(r[p]))
 
 
        
@@ -70,11 +83,10 @@ def handle(msg):
 
 #TOKEN = sys.argv[1]  # get token from command-line
 
-<<<<<<< HEAD
-bot = telepot.Bot('TOKEN')
-=======
-bot = telepot.Bot('TOKEEEEEEEEEEEEEEEEENNNNNNNNN')
->>>>>>> 03ca230cbaa3e4fe35eca7192a03905b40da5939
+
+ 
+bot = telepot.Bot('***********TOKEN ')
+
 MessageLoop(bot, handle).run_as_thread()
 print ('Listening ...')
 
