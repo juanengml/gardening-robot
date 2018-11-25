@@ -67,7 +67,11 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 # conecta no broker
+<<<<<<< HEAD
 client.connect("192.168.100.13", 1883)
+=======
+client.connect("192.168.100.15", 1883)
+>>>>>>> 8593228256e20f96ab3e2491532d7fcb05abfbf2
 
 # permace em loop, recebendo mensagens
 client.loop_forever()
