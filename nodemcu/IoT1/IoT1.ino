@@ -11,8 +11,8 @@ float umidade;
 
 #define SSID_REDE     "tapodi"    // nome da rede 
 #define SENHA_REDE    "naolembro"        // senha da rede 
-#define IP_BROKER     "192.168.100.3"       // IP DO BROKER LOCAL
-#define TOPICO         "home/gardem/horta/planta/03" //  PLANTA 01  
+#define IP_BROKER     "192.168.100.13"       // IP DO BROKER LOCAL
+#define TOPICO         "home/gardem/horta/planta/02" //  PLANTA 01  
 
 void setup(){
   Serial.begin(115200);
@@ -132,7 +132,7 @@ char* PegarDado(){
   ValorADC = analogRead(0);   //418 -> 1.0V
   UmidadePercentual = 100 * ((418-(float)ValorADC) / 418);
 
-  long ID = 01;  /// change ID DO IOT 
+  long ID = 02;  /// change ID DO IOT 
   umidade = UmidadePercentual;
   static char data[100];
   Serial.println(umidade);
