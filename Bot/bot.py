@@ -4,9 +4,9 @@ import time
 import telepot
 from telepot.loop import MessageLoop
 import numpy as np
-import pandas as pd
+import panda as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
+#import seaborn as sns
 
 
 std = """Sou um Robo desenvolvido para analisar sensor de umidade de solo, classificar niveis de umidade e prever se as plantas no jardim/horta precisa ser ragada ou não, no que posso ajudar ? """
@@ -19,14 +19,11 @@ def query_20(ID,p):
 
 def grafico_linha():
  df = pd.read_csv("../mqtt/test/log.csv")
- sns.pairplot(df)
- sns_plot = sns.pairplot(df)
  umidade = df[df.columns[4:]] 
  plot = umidade.plot()
  fig = plot.get_figure()
 #  fig.savefig("output.png")
  fig.savefig('graph.jpg')
- sns_plot.savefig("output.png")
  print "Grafico gerado "
 
 
@@ -62,8 +59,8 @@ def handle(msg):
         grafico_linha()      	
         bot.sendMessage(chat_id, "Gerando grafico de ploter...")
         bot.sendPhoto(chat_id, open('graph.jpg', 'rb'))
-        bot.sendMessage(chat_id, "Gerando grid graph...")
-        bot.sendPhoto(chat_id, open('output.png', 'rb'))
+#        bot.sendMessage(chat_id, "Gerando grid graph...")
+#        bot.sendPhoto(chat_id, open('output.png', 'rb'))
     if msg['text'] == "/cmds":    
     	dado = msg['text']
     	bot.sendMessage(chat_id, "Para usar o comando /query use o exemplo abaixo\n/query id:02\n/query all\n/query id:03 range:100\nCom isso o sistema fara uma busca pelo ID do sensor, ou mostrara todos os sensores conectados e os seus respctivos niveis, o range definira a faixa que ele vai buscar")
@@ -85,7 +82,7 @@ def handle(msg):
 
 
  
-bot = telepot.Bot('***********TOKEN ')
+bot = telepot.Bot('720770185:AAEQeCMNxPA6WIn-zWMehXFTXI14jdGg3uA')
 
 MessageLoop(bot, handle).run_as_thread()
 print ('Listening ...')
