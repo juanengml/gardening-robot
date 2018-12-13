@@ -7,7 +7,7 @@ import pyautogui
 
 client = mqtt.Client()
 # conecta no broker
-client.connect("192.168.100.3", 1883)
+client.connect("192.168.100.15", 1883)
 
 # "bloco/E/lab/302/SENSOR/JANELA/1
 # "home/sala/janela/01/status/"
@@ -30,9 +30,9 @@ while True:
        client.publish("/garden/painel/bombas/ID/"+menu, entrada)
     if menu=='reset':
        print menu
-       client.publish("/garden/painel/reset/status/", '0')
-       sleep(5)
        client.publish("/garden/painel/reset/status/", '1')
+       sleep(5)
+       client.publish("/garden/painel/reset/status/", '0')
      
        
     if menu=='SAIR': 
