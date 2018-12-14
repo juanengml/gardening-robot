@@ -13,10 +13,10 @@ long mes;
 long hora;
 long data;
 
-#define SSID_REDE     "qual e a senha"    // nome da rede 
-#define SENHA_REDE    "meadota123"        // senha da rede 
-#define IP_BROKER     "192.168.0.9"       // IP DO BROKER LOCAL
-#define TOPICO         "/horta/planta/01" //  PLANTA 01  
+#define SSID_REDE     "tapodi"    // nome da rede 
+#define SENHA_REDE    "naolembro"        // senha da rede 
+#define IP_BROKER     "192.168.100.15"       // IP DO BROKER LOCAL
+#define TOPICO         "/garden/planta/03" //  PLANTA 01  
 
 void setup(){
   Serial.begin(115200);
@@ -129,11 +129,21 @@ void VerificaConexoesWiFIEMQTT(void)
  
 char* PegarDado(){
   long ID  = 01;  /// change ID DO IOT 
-  day = random(30);
-  mes = random(2);
-  hora = random(23);
-  umidade = random(100);
+  float umidade;
+  int Umidade;
+  umidade = FazLeituraUmidade();
+  Umidade = (int)umidade;
   static char data[100];
-  sprintf(data, "ID: %lu; MES: %lu; DIA: %lu; Hora: %lu; umidade: %lu", ID, mes, day,hora,umidade);
+  sprintf(data, "%d",Umidade);
   return data;
+}
+
+float FazLeituraUmidade(void)
+{
+    int ValorADC;
+    float UmidadePercentual;
+ 
+     ValorADC = analogRead(0);   //978 -> 3,3V
+     UmidadePercentual = 100 * ((978-(float)ValorADC) / 978);
+     return UmidadePercentual;
 }
