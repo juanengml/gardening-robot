@@ -8,8 +8,10 @@ import paho.mqtt.client as mqtt
 import json
 import ast
 
-
-ser = Serial("/dev/ttyUSB0",9600)
+try:
+ ser = Serial("/dev/ttyUSB0",9600)
+except:
+ ser = Serial("/dev/ttyUSB1",9600)
 
 THINGSBOARD_HOST = 'delrey.td.utfpr.edu.br'
 ACCESS_TOKEN = 'jxvHtpYfVmfUOSuefstq'
