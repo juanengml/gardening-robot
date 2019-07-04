@@ -1,6 +1,6 @@
 from serial import Serial
 from datetime import datetime
-import db
+import csv
 import os
 import time
 import sys
@@ -8,47 +8,30 @@ import paho.mqtt.client as mqtt
 import json
 import ast
 from os import system
-import csv
-
-
-path = "dba.csv"
 
 try:
  ser = Serial("/dev/ttyUSB0",9600)
 except:
  ser = Serial("/dev/ttyUSB1",9600)
 
-#THINGSBOARD_HOST = 'delrey.td.utfpr.edu.br'
-ACCESS_TOKEN = 'jxvHtpYfVmfUOSuefstq'
 THINGSBOARD_HOST = 'delrey.td.utfpr.edu.br'
+ACCESS_TOKEN = 'jxvHtpYfVmfUOSuefstq'
+#THINGSBOARD_HOST = 'delrey.td.utfpr.edu.br'
 #ACCESS_TOKEN = 'vHXgIJCOkDqcuuJQwjd0'
 INTERVAL=2
-ID = 1
 
-
-def Tempo():
-    hora = datetime.now().hour
-    minute = datetime.now().minute
-    second = datetime.now().second
-    dia = datetime.now().day
-    mes = datetime.now().month
-    ano = datetime.now().year
-    return "%s/%s/%s %s:%s:%s" % (dia,mes,ano,hora,minute,second)
-
-
-def gravar_dado(path,chave,valor):
- with open(path,'a') as log:
-        dados = [chave,valor]
-        writer = csv.writer(log,delimiter=",")
-        writer.writerow(dados[1])
-        print "*" * 50
-        print "\t\tGRAVADO no CSV"
-        print "*" * 50
-
+def tempo():
+  hora = "%s:%s" (datetime.now().hour,datetime.now().minute)
+  data = "%s\\%s\\%s" % (datetime.now().day,datetime.now().month,datetime.now(),year)
+  Tempo = "%s %s;" % (data,hora)
+  return Tempo
 
 def tratamento(msg):
     dicionario = ast.literal_eval(str(msg.split("\r\n")[0]))
     try:
+         if dicionario.keys()[0] == "Temperature":
+           return dicionario
+         else:
            return dicionario
     except:
          pass
@@ -72,15 +55,12 @@ try:
     while True:
         text = ser.readline()
         sensor_data = tratamento(text)
-        valores =  sensor_data.values()
-        chaves = sensor_data.keys()
-        valores.insert(0,ID)
-        chaves.insert(0,"ID")
-        valores.insert(1,Tempo())
-        chaves.insert(1,"datetime")
-        #gravar_dado("dba.csv",chave,valor)
-        #system("echo %s >> dba.csv" % "".join(valores))
-        print chaves,valores
+        #preditor(text)
+        #data = tempo() + json.dumps(sensor_data)
+        #print data
+        print json.dumps(sensor_data)
+        system("echo %s >> data1.csv" %  json.dumps(sensor_data))
+
         client.publish('v1/devices/me/telemetry', json.dumps(sensor_data), 1)
 
         next_reading += INTERVAL
